@@ -8,12 +8,15 @@ import { UpdateUserAvatarController } from "@modules/accounts/useCases/updateUse
 import { ensureAuthenticate } from "../middlewares/ensureAuthenticate";
 
 const usersRouter = Router();
+
 const uploadAvatar = multer(upload.upload("./tmp/avatar"));
 
 const createUser = new CreateUserController();
+
 const updateUserAvatarController = new UpdateUserAvatarController();
 
 usersRouter.post("/", createUser.handle);
+
 usersRouter.patch(
   "/avatar",
   ensureAuthenticate,
