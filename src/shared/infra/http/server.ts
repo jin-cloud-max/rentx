@@ -4,15 +4,15 @@ import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 import swaggerUi from "swagger-ui-express";
 
-import "../typeorm";
-
 import "../../container";
 
 import { AppError } from "@shared/errors/AppError";
 
 import swaggerFile from "../../../swagger.json";
+import createConnection from "../typeorm";
 import { router } from "./routes";
 
+createConnection();
 const app = express();
 
 app.use(express.json());
@@ -31,6 +31,7 @@ app.use(
 
     return response.status(500).json({
       status: "error",
+
       message: `Internal server error - ${err.message}`,
     });
   }
