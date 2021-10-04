@@ -12,11 +12,13 @@ class CategoriesRepositoryInMemory implements ICategoriesRepository {
 
     return category;
   }
+
   async list(): Promise<Category[]> {
     const listCategories = this.categories;
 
     return listCategories;
   }
+
   async create({ name, description }: ICreateCategoryDTO): Promise<void> {
     const category = new Category();
 
