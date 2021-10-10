@@ -26,7 +26,7 @@ class DevolutionRentalUseCase {
 
   async execute({ id, user_id }: IRequest): Promise<Rental> {
     const rental = await this.rentalsRepository.findById(id);
-    const car = await this.carsRepository.findById(id);
+    const car = await this.carsRepository.findById(rental.car_id);
     const minimum_daily = 1; // 1 day
 
     if (!rental) {
@@ -34,6 +34,9 @@ class DevolutionRentalUseCase {
     }
 
     const dateNow = this.dateProvider.dateNow();
+
+    console.log(dateNow);
+    console.log(rental.expected_return_date);
 
     let daily = this.dateProvider.compareDays(
       rental.start_date,
@@ -45,9 +48,11 @@ class DevolutionRentalUseCase {
     }
 
     const delay = this.dateProvider.compareDays(
-      dateNow,
-      rental.expected_return_date
+      rental.expected_return_date,
+      dateNow
     );
+
+    console.log(delay);
 
     let total = 0;
 

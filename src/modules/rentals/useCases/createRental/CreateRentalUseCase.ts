@@ -9,6 +9,7 @@ import { AppError } from "@shared/errors/AppError";
 interface IRequest {
   user_id: string;
   car_id: string;
+  start_date?: Date;
   expected_return_date: Date;
 }
 
@@ -28,6 +29,7 @@ class CreateRentalUseCase {
     user_id,
     car_id,
     expected_return_date,
+    start_date,
   }: IRequest): Promise<Rental> {
     const minimumRentalHour = 24; // 24 hours
 
@@ -47,7 +49,7 @@ class CreateRentalUseCase {
       throw new AppError("There is a rental in progress for this user!");
     }
 
-    const dateNow = this.dateProvider.dateNow();
+    const dateNow = start_date || this.dateProvider.dateNow();
 
     const compare = this.dateProvider.compareHours(
       dateNow,
