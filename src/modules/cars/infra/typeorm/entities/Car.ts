@@ -45,7 +45,7 @@ class Car {
   @CreateDateColumn()
   created_at: Date;
 
-  @ManyToOne(() => Category)
+  @ManyToOne(() => Category, (category) => category.cars)
   @JoinColumn({ name: "category_id" })
   category: Category;
 

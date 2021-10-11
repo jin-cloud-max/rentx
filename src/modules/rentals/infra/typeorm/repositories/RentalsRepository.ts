@@ -55,6 +55,24 @@ class RentalsRepository implements IRentalsRepository {
 
     return rental;
   }
+
+  async findByUserId(user_id: string): Promise<Rental[]> {
+    // PARA SELECIONAR APENAS ALGUNS CAMPOS DO RELACIONAMENTO USE QUERY BUILDER
+    // const rentals = await this.repository
+    //   .createQueryBuilder("rentals")
+    //   .where("user_id = :user_id", { user_id })
+    //   .leftJoinAndSelect("rentals.car", "car")
+    //   .select(["car.name", "rentals.end_date"])
+    //   .getMany();
+
+    const rentals = await this.repository.find({
+      // select: ["id", "total", "start_date", "end_date", "car_id"],
+      where: { user_id },
+      relations: ["car"],
+    });
+
+    return rentals;
+  }
 }
 
 export { RentalsRepository };
