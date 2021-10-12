@@ -9,6 +9,8 @@ import { v4 as uuidV4 } from "uuid";
 
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 
+import { UserTokens } from "./UserTokens";
+
 @Entity("users")
 class User {
   @PrimaryColumn()
@@ -37,6 +39,9 @@ class User {
 
   @OneToMany(() => Rental, (rental) => rental.user)
   rental: Rental[];
+
+  @OneToMany(() => UserTokens, (tokens) => tokens.user)
+  userTokens: UserTokens[];
 
   constructor() {
     if (!this.id) {
