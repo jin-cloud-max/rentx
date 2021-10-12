@@ -29,7 +29,7 @@ class AuthenticateUserUseCase {
   async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
 
-    if (!email) {
+    if (!user) {
       throw new AppError("E-mail or password incorrect!");
     }
 

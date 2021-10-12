@@ -90,7 +90,5 @@ describe("Devolution Rental", () => {
     });
 
     expect(devolutionRental.total).toBe(180);
-
-    console.log(devolutionRental);
   });
 });

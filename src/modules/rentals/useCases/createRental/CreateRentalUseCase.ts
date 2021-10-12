@@ -37,16 +37,16 @@ class CreateRentalUseCase {
       car_id
     );
 
-    if (carUnavailable) {
-      throw new AppError("Car is not available");
-    }
-
     const rentalOpenToUser = await this.rentalsRepository.findOpenRentalByUser(
       user_id
     );
 
     if (rentalOpenToUser) {
       throw new AppError("There is a rental in progress for this user!");
+    }
+
+    if (carUnavailable) {
+      throw new AppError("Car is not available");
     }
 
     const dateNow = start_date || this.dateProvider.dateNow();

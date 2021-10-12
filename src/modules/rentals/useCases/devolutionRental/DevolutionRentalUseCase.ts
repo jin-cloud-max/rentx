@@ -35,9 +35,6 @@ class DevolutionRentalUseCase {
 
     const dateNow = this.dateProvider.dateNow();
 
-    console.log(dateNow);
-    console.log(rental.expected_return_date);
-
     let daily = this.dateProvider.compareDays(
       rental.start_date,
       this.dateProvider.dateNow()
@@ -51,8 +48,6 @@ class DevolutionRentalUseCase {
       rental.expected_return_date,
       dateNow
     );
-
-    console.log(delay);
 
     let total = 0;
 
